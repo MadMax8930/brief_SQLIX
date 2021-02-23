@@ -1,0 +1,5 @@
+CREATE USER 'sqlix_u'@'localhost' IDENTIFIED BY 'PASSWORD1234';
+
+GRANT SELECT, INSERT, UPDATE, DELETE ON SQLix.* TO 'sqlix_u'@'localhost';
+
+SHOW GRANTS FOR 'sqlix_u'@'localhost';

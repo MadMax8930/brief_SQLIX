@@ -1,0 +1,14 @@
+Pourquoi l'équipe a choisi un moteur relationnel SQL et pas le NoSQL?
+
+Le SQL “Structured Query Language” est un langage standard et normalisé.
+L'un des principes fondamentaux de SQL est la conformité "ACID", qui garantit la bonne et fiable execution des transactions informatiques. 
+En effet, les transactions sont atomiques, cohérentes, isolées et durables (Atomicity, Consistency, Isolation, Durability). 
+Avec un moteur relationnel nous avons la possibilité de mettre en œuvre des requêtes complexes avec notamment des croisements multiples des données.
+Dans les systèmes de gestion de base de données relationnels, les données apparaissent sous forme de tableaux, de lignes et de colonnes avec une structure rigide et des dépendances claires. 
+
+Cependant, avec un moteur non relationnel les bases de données ne sont pas limitées à une structure de table. 
+Le NoSQL est une famille de système de gestion de base de données considérée comme orientée document. 
+En effet, les données sont non structurées (ex: articles, photos, vidéos etc...) et sont assemblées dans un seul document. 
+Les données sont simples à interroger, mais ne sont pas toujours classées en lignes et en colonnes comme dans une base de données relationnelle. 
+
+C'est pourquoi dans le cas actuel, un moteur relationnel est plus approprié.

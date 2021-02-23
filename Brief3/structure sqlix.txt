@@ -1,0 +1,121 @@
+CREATE DATABASE SQLix DEFAULT CHARACTER SET utf8mb4;
+USE SQLix;
+
+
+CREATE TABLE qualite (
+num_qualite INT,
+lib_qualite VARCHAR(30),
+PRIMARY KEY (num_qualite)
+)
+ENGINE=INNODB;
+
+
+CREATE TABLE province (
+num_province INT,
+nom_province VARCHAR(30),
+nom_gouverneur VARCHAR(30),
+PRIMARY KEY (num_province)
+)
+ENGINE=INNODB;
+
+
+CREATE TABLE village (
+num_village INT,
+nom_village VARCHAR(30),
+nb_huttes INT,
+num_province INT,
+PRIMARY KEY (num_village)
+)
+ENGINE=INNODB;
+
+ALTER TABLE village 
+ADD FOREIGN KEY (num_province) REFERENCES province (num_province);
+
+
+CREATE TABLE resserre (
+num_resserre INT,
+nom_resserre VARCHAR(30),
+superficie INT,
+num_village INT,
+PRIMARY KEY (num_resserre)
+) 
+ENGINE=INNODB;
+
+ALTER TABLE resserre 
+ADD FOREIGN KEY (num_village) REFERENCES village (num_village);
+
+
+CREATE TABLE habitant (
+num_hab INT,
+nom VARCHAR(30),
+age INT,
+num_qualite INT,
+num_village INT,
+PRIMARY KEY (num_hab)
+)
+ENGINE=INNODB;
+
+ALTER TABLE habitant
+ADD FOREIGN KEY (num_qualite) REFERENCES qualite (num_qualite),
+ADD FOREIGN KEY (num_village) REFERENCES village (num_village);
+
+
+CREATE TABLE categorie (
+code_cat CHAR(3),
+nom_trophee VARCHAR(50),
+nb_points INT,
+PRIMARY KEY (code_cat)
+) 
+ENGINE=INNODB;
+
+
+CREATE TABLE trophee (
+num_trophee INT,
+date_prise DATETIME,
+code_cat CHAR(3),
+num_preneur INT,
+num_resserre INT,
+PRIMARY KEY (num_trophee)
+) 
+ENGINE=INNODB;
+
+ALTER TABLE trophee
+ADD FOREIGN KEY (code_cat) REFERENCES categorie (cod_cat),
+ADD FOREIGN KEY (num_preneur) REFERENCES habitant (num_hab),
+ADD FOREIGN KEY (num_resserre) REFERENCES resserre (num_resserre);
+
+
+CREATE TABLE potion (
+num_potion INT,
+lib_potion VARCHAR(40),
+formule VARCHAR(30),
+constituant_principal VARCHAR(30),
+PRIMARY KEY (num_potion)
+)
+ENGINE=INNODB;
+
+
+CREATE TABLE fabriquer (
+num_potion INT,
+num_hab INT,
+PRIMARY KEY (num_potion, num_hab)
+)
+ENGINE=INNODB;
+
+ALTER TABLE fabriquer
+ADD FOREIGN KEY (num_potion) REFERENCES potion (num_potion),
+ADD FOREIGN KEY (num_hab) REFERENCES habitant (num_hab);
+
+
+CREATE TABLE absorber (
+num_potion INT,
+date_a DATETIME,
+num_hab INT,
+quantite INT,
+PRIMARY KEY (num_potion, date_a, num_hab)
+)
+ENGINE=INNODB;
+
+ALTER TABLE absorber
+ADD FOREIGN KEY (num_potion) REFERENCES potion (num_potion),
+ADD FOREIGN KEY (num_hab) REFERENCES habitant (num_hab);
