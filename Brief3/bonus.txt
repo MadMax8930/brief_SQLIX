@@ -1,0 +1,112 @@
+1)  SELECT * FROM potion;
+
+2)  SELECT nom_trophee FROM categorie
+    WHERE nb_points=3;
+
+3)  select nom_village FROM village
+    WHERE nb_huttes>35;
+
+4)  SELECT num_trophee FROM trophee
+    WHERE date_prise > "2052-05-00 00:00:00" AND date_prise < "2052-06-31 00:00:00";
+
+5)  SELECT nom FROM habitant 
+    WHERE nom LIKE 'A%' AND nom LIKE '%r%';
+
+6)  SELECT nom FROM habitant 
+    INNER JOIN absorber ON habitant.num_hab = absorber.num_hab 
+    WHERE num_potion = 1 OR num_potion = 3 OR num_potion = 4;
+    GROUP BY nom;
+
+7)  SELECT * FROM trophee;
+
+8)  SELECT nom FROM habitant h 
+    INNER JOIN village v ON h.num_village = v.num_village
+    WHERE nom_village = 'Aquilona';
+
+9)  SELECT nom FROM habitant h
+    INNER JOIN trophee t ON h.num_hab = t.num_preneur 
+    INNER JOIN categorie c ON c.code_cat = t.code_cat 
+    WHERE nom_trophee = 'Bouclier de Légat';
+
+10) SELECT lib_potion, formule, constituant_principal FROM potion p
+    INNER join fabriquer f ON p.num_potion = f.num_potion 
+    INNER join habitant h ON f.num_hab = h.num_hab
+    WHERE nom = "Panoramix";
+
+11) SELECT DISTINCT lib_potion, formule, constituant_principal FROM potion p
+    INNER JOIN absorber a ON p.num_potion = a.num_potion 
+    INNER JOIN habitant h ON a.num_hab = h.num_hab
+    WHERE nom = "Homéopatix";
+
+12) SELECT nom FROM habitant h
+    INNER JOIN absorber a ON h.num_hab = a.num_hab
+    INNER JOIN fabriquer f ON a.num_hab = f.num_hab
+    WHERE num_hab = 3
+    GROUP BY nom;
+
+13) SELECT nom FROM habitant h
+    INNER JOIN fabriquer f ON h.num_hab = f.num_hab
+    INNER JOIN potion p ON f.num_hab = p.num_hab
+    INNER JOIN absorber a ON p.num_potion = a.num_potion 
+    WHERE num_hab = 2;
+
+14) SELECT nom FROM habitant h 
+    WHERE num_qualite IS NULL;
+
+15) SELECT nom FROM habitant h
+    INNER JOIN absorber a ON h.num_hab = a.num_hab
+    INNER JOIN potion p ON a.num_potion = p.num_potion 
+    WHERE date_a LIKE '2052-02-%'AND p.num_potion = 1 ;
+
+16) SELECT nom, age FROM habitant
+    ORDER BY nom;
+
+17) SELECT nom_resserre, num_village FROM resserre
+    ORDER BY superficie DESC;
+
+18) SELECT nom FROM habitant h
+    INNER JOIN village v ON h.num_village = v.num_village
+    WHERE nom_village = "Condate";
+
+19) SELECT SUM(nb_points) FROM categorie c
+    INNER JOIN trophee t ON c.code_cat = t.code_cat
+    INNER JOIN habitant h ON t.num_preneur = h. num_hab
+    WHERE nom = "Goudurix";
+
+20) SELECT date_prise FROM trophee
+    ORDER BY date_prise ASC
+    LIMIT 1;
+
+21) SELECT SUM(quantite) FROM absorber a
+    INNER JOIN potion p ON a.num_potion = p.num_potion
+    WHERE lib_potion = 'Potion magique n°2';
+
+22) SELECT MAX(superficie) FROM resserre;
+
+23) SELECT nom_village, nb_huttes FROM village;
+
+24) 
+
+25) SELECT nom_province, AVG(age) FROM habitant h
+    INNER JOIN village v ON h.num_village = v.num_village 
+    INNER JOIN province p ON v.num_province = p.num_province 
+    GROUP BY nom_province;
+
+26) SELECT nom, COUNT(num_potion) FROM absorber a
+    INNER JOIN habitant h ON a.num_hab = h.num_hab
+    GROUP BY nom;
+
+27) SELECT nom FROM habitant h
+    INNER JOIN absorber a ON h.num_hab = a.num_hab
+    INNER JOIN potion p ON a.num_potion = p.num_potion 
+    WHERE lib_potion = "Potion Zen"
+    GROUP BY quantite >1;
+
+28) SELECT nom_village FROM village v 
+    INNER JOIN resserre r ON v.num_village = r.num_village 
+    GROUP BY nom_village;
+
+29) SELECT nom_village, nb_huttes FROM village 
+    ORDER BY nb_huttes DESC LIMIT 1;
+
+30)
